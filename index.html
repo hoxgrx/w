@@ -19,7 +19,7 @@
         box-sizing: border-box;
         outline: 0px solid transparent;
       }
-      a, h3{
+      a, h3, i{
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -84,16 +84,18 @@
   var button = document.querySelector('button');
   var synth = window.speechSynthesis;
   var words = ['エー','ビー','シー'], index = 1, len = 3;
+  var ggtts = true;
  body.addEventListener('tap',function(e){
     // Make noise
    makeNoise(words[index-1],'1');
 });
 body.addEventListener('dbltap',function(e){
-  // Force show text
-});
-body.addEventListener('longtap',function(e){
   // Make slower noise
   makeNoise(words[index-1],'0.24');
+});
+body.addEventListener('longtap',function(e){
+  //Mix
+  mix();
 });
 body.addEventListener('swipeleft',function(e){
   // NEXT
@@ -109,8 +111,13 @@ body.addEventListener('swipeup',function(e){
   h3.classList.toggle("hidden");
 });
 body.addEventListener('swipedown',function(e){
-  // Mix
-  mix();
+  // Change type GG-Syn-TTS
+  if(ggtts){
+    synTTS('オフラインモード','1');
+  } else {
+    synTTS('オンラインモード','1');
+  }
+  ggtts = !ggtts;
 });
   txta.addEventListener('focusout',function() {
     txta.hidden = true;
@@ -122,7 +129,7 @@ body.addEventListener('swipedown',function(e){
   });
   function makeNoise(text, speed)
   {
-    if(navigator.onLine) {
+    if(ggtts) {
       ggTTS(text,speed);
     } else {
       synTTS(text,speed);
@@ -136,9 +143,6 @@ body.addEventListener('swipedown',function(e){
     audio.play();
   }
   function synTTS(text, ttsspeed) {
-    if (synth.speaking) {
-         synth.pause();
-    }
     var rate = 0.5;
 	if(ttsspeed=='1') {
 		rate = 1;
