@@ -6,6 +6,11 @@
 
 	<style>
 	  body {
+	    width:100vw;
+		height:100vh;
+	    overflow:hidden;
+	  }
+	  #b {
 		color:#111;
 		width:100vw;
 		height:100vh;
@@ -14,6 +19,7 @@
 		display:block;
 		align-content:center;
         text-align:center;
+        z-index: 0;
 	  }
       * {
         box-sizing: border-box;
@@ -28,19 +34,35 @@
 	  a {
 		color:orange;
 		text-decoration: none;
+		margin-top: 10vh;
 	  }
 	  h3 {
 		color: darkred;
         font-size: 40px;
         margin-top: 30vh;
 	  }
-      button {
+      #w {
         position:fixed;
         bottom: 10px;
         right: 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
+        z-index: 1;
+      }
+      #n , #p{
+        position:fixed;
+        top: 10vh;
+        width: 20vw;
+        height: 80vh;
+        opacity:0;
+        z-index: 1;
+      }
+      #n {
+        right: 0;
+      }
+      #p {
+        left: 0;
       }
       textarea {
         position: fixed;
@@ -50,6 +72,7 @@
         height: 50vh;
         border-radius: 5px;
         font-size:18px;
+        z-index: 2;
       }
       .hidden {
         display: none;
@@ -61,31 +84,69 @@
 </head>
 <body>
   <audio src="" hidden></audio>
-  <button>
+
+  <button id="w">
     <i>?</i>
   </button>
+  <span id="n">
+  </span>
+  <span id="p">
+  </span>
   <textarea hidden></textarea>
-  <a>1/3</a>
-  <h3>エー</h3>
+  <div id="b">
+     <a>1/3</a>
+     <h3>エー</h3>
+  </div>
 
 
 
 
-
+<script>
+var warray =[
+'しつれい　ですが、おなまえは。おいくつ　ですか。Ｓｅｋｕｓｕ　さんは　かいしゃいん　ですか。あのかたは　どなた　ですか。Ｓｅｋｕｓｕ　さんは　ちゅうごくじん　ですか。Ｓｅｋｕｓｕ　さんは　ジャベットセンター　の　がくせい　ですか。Ｓｅｋｕｓｕ　さんも　ジャベットセンター　の　がくせい　ですか。Ｓｅｋｕｓｕ　さんの　かいしゃ　の　なまえは　なんですか。これは　なんですか。それは　ほんですか、じしょ　ですか。それは　なんの　ほんですか。Ｓｅｋｕｓｕ　さんの　ほんですか。このほんはだれの　ですか。それは　ボールペンですか、シャープペンシルですか。あれは　だれの　とけいですか。このかばんは　だれの　かばんですか。このかぎも　Ｓｅｋｕｓｕ　さんの　ですか。おくには　どちら　ですか。Ｓｅｋｕｓｕ　さんの　うちは　どちらですか。Ｓｅｋｕｓｕ　さんの　ケイタイ（でんわ）は　にほんの　ですか。Ｓｅｋｕｓｕ　さんの　でんわは　にほんの　ですか。いくら　ですか。Ｓｅｋｕｓｕさんは　いま　どこですか。すみません、ぎんこうは　どちら　ですか。ぎんこうは　なんじから　なんじまで　ですか。すみません、いま、なんじ　ですか。きょうは　かようび　ですか。かいわ　チェックは　なんようび　ですか。かいわ　チェックはなんじから　ですか。にほんご　の　べんきょうは　なんようび　から　なんようび　まで　ですか。やすみは　どようび　と　にちようび　ですか。すみません、にほんは　いま、なんじ　ですか。まいあさ、なんじ　に　おきますか。きょうは　べんきょうしますか、なんじから　なんじまで　べんきょうしますか。よるは　べんきょうしますか、なんじまで　べんきょうしますか。なんじ　に　ねますか。きのうの　ばん、なんじ　に　ねましたか。きのう、べんきょうしましたか。あしたは　べんきょうしますか。あさっては　やすみ　ですか。にちようびは　べんきょうしますか。にちようびは　なんじ　に　おきますか。にほんごは　なんじから　べんきょうしますか。なんじ　に　おわりますか。ひるやすみは　なんじから　なんじまで　ですか。しけんは　なんようび　ですか。けさ、なんじ　に　おきましたか。こんばん、なんじ　に　ねますか。Ｓｅｋｕｓｕ　さんの　かいしゃは　どちら　ですか。Ｓｅｋｕｓｕ　さんの　かいしゃの　やすみは　なんようび　ですか。Ｓｅｋｕｓｕさんの　かいしゃは　なんじから　なんじまで　ですか。あした、はたらきますか',
+'Sｅｋｕｓｕさん、まいにち、べんきょうしますか。 なんじ から なんじ まで べんきょうしますか。 きのうの ばん、べんきょうしましたか。 なんじまで べんきょうしましたか。 なんじに ねましたか。 まいにち、11じに ねますか。 せんしゅうの にちようび、どこへ いきましたか。 スーパーへ いきましたか。 ひとりで いきましたか。 スーパーへ なんで いきましたか。 なんじに かえりましたか。 あしたは がっこうへ いきますか。 あした、なんじから べんきょうしますか。なんじに おわりますか。 こんしゅうの どようび、デパートへ いきますか。 なんで だれと いきますか。 なんじにいきますか。 あした、なんにち ですか。 きんようびですか。 らいしゅうの きんようびは なんにち ですか。 べんきょうしますか。 にちようび、べんきょうしますか。 どこへ いきますか。 バイクで いきますか。 だれと いきますか。 こんげつは なんがつ ですか。 きょうは なんようび ですか。 あさっては なんにち ですか。 しがつ３０にちは なんようび ですか。 しがつ３０にちは べんきょうしますか。 どこへ いきますか。 せんしゅうの にちようび、どこへ だれと いきましたか。 バスで いきましたか。 なんじに かえりましたか。 すみません、Sｅｋｕｓｕさんの たんじょうびは なんがつ なんにち ですか。 Sｅｋｕｓｕさんは ことし、おいくつ ですか。 Sｅｋｕｓｕさんは にほんへ いきましたか。 いつ ベトナムへ かえりましたか。 Sｅｋｕｓｕさんは いつ にほんへ いきますか。 だれと いきますか。 いつ ベトナムへ かえりますか。 ２０２３ねん の です、なんがつなんにちわかりません',
+'あしたはひまですか。センターのひるごはんはおいしいですか。あなたのいなかはしずかですか。ジャベットセンターのせんせいはしんせつですか。ラムさんはどんな人ですか。フックさんのへやはきれいですか。あなたのいなかのひとはしんせつですか。りょうのせいかつはどうですか。あなたのジャベットセンターのせいかつはどうですか。にほんごのベんきょうはどうですか。にほんごはむずかしいですか。きょうはさむいですか。レストランのたべものはどうですか。こんばんばいそがしいですか。うちはおおきいですか。かのしゅくだいはかんたんですか。にほんのたべものはやすいですか。りょうのせいかつはたのしいですか。ケータイはべんりですか。あなたのともだちのこいびとはきれいですか。にほんはどんなくにですか。あなたのまちはどんなところですか。ジャベットセンターはどんなかいしゃですか。THANK YOUはにほんごでなんでうか。あなたのおかあさんはどんなひとですか。どんなえいがをみますか。きょねんのたんじょうびにどんなプレゼントをもらいましたか。エアコンはベトナム語でなんですか。CDでにほんごをべんきょうしますか。おかあさんのたんじょうびになにをあげましたか。きのう、ともだちにおかねをかしましたか。だれにバイクをかりましたか。ひらがなとカタカナをならいましたか。にほんごのべんきょうはどうですか。にほんごはかんたんですか。2月14日にかのじょになにをあげますか。.あなたの　たんじょうび　は　いつですか。たんじょうびに　なにを　もらいましたか。これは　なんですか。ホッチキス、けしゴム、スプーン、はし、はさみ。もう、あさ（ひる）ごはんをたべましたか。なにをたべましたか。なんでたべましたか。あなたは　なんで　フォーをたべますか。もう、だい８かのあたらしいことばをべんきょうしましたか。たんとうせんせい　は　どなたですか。おもしろいですか。何でしゃしんをとりましたか。まいにち、だれににほんごをならいますか。せんせいは　どなたですか。どんなせんせいですか。JAVIET　センターのせんせいはどんなせんせいですか。あなたの　ケータイは　どこ　ですか。どこのですか、どうですか。あなたの　パソコンは　いくらですか。けさ、あさごはん　をたべましたか。それから、何をしましたか。あなたのふるさとはどこですか。あなたの　ふるさとは　どんなところ　ですか。ふるさとの　ゆうめいなたべもの　は　なんですか。わたしのケータイはべんりです。そして　あたらしいです。あなたのケータイはどんなケータイですか。ベトナムでゆうめいなところ　は　どこですか。私のとけいはべんりです。そしてきれいです。あなたのとけいは　どうですか。日本語のべんきょうは　どうですか。あなたのクラスのともだちは　どうですか。JAVIET　センターのりょうは　どうですか',
+'d',
+'',
+'',
+'',
+''];
+var indx = 0;
+</script>
 <script>
 !function(doc,win){if("function"!=typeof doc.createEvent)return;function pointerEvent(type){var lo=type.toLowerCase(),ms="MS"+type;return navigator.msPointerEnabled?ms:!!window.PointerEvent&&lo}function touchEvent(name){return"on"+name in window&&name}function isTheSameFingerId(e){return!e.pointerId||void 0===pointerId||e.pointerId===pointerId}function setListener(elm,events,callback){for(var eventsArray=events.split(" "),i=eventsArray.length;i--;)elm.addEventListener(eventsArray[i],callback,!1)}function getPointerEvent(event){var hasTargetTouches=Boolean(event.targetTouches&&event.targetTouches.length);switch(!0){case Boolean(event.target.touches):return event.target.touches[0];case hasTargetTouches&&void 0!==event.targetTouches[0].pageX:return event.targetTouches[0];case hasTargetTouches&&Boolean(event.targetTouches[0].touches):return event.targetTouches[0].touches[0];default:return event}}function isMultipleTouches(event){return 1<(event.targetTouches||event.target.touches||[]).length}function getTimestamp(){return(new Date).getTime()}function sendEvent(elm,eventName,originalEvent,data){var customEvent=doc.createEvent("Event");if(customEvent.originalEvent=originalEvent,(data=data||{}).x=currX,data.y=currY,defaults.useJquery&&(customEvent=jQuery.Event(eventName,{originalEvent:originalEvent}),jQuery(elm).trigger(customEvent,data)),customEvent.initEvent){for(var key in data)customEvent[key]=data[key];customEvent.initEvent(eventName,!0,!0),elm.dispatchEvent(customEvent)}for(;elm;)elm["on"+eventName]&&elm["on"+eventName](customEvent),elm=elm.parentNode}var pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer,defaults={useJquery:!win.IGNORE_JQUERY&&"undefined"!=typeof jQuery,swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1e3,tapPrecision:win.TAP_PRECISION/2||30,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=!1,touchevents_touchstart=touchEvent("touchstart")||pointerEvent("PointerDown"),touchevents_touchend=touchEvent("touchend")||pointerEvent("PointerUp"),touchevents_touchmove=touchEvent("touchmove")||pointerEvent("PointerMove"),tapNum=0;setListener(doc,touchevents_touchstart+(defaults.justTouchEvents?"":" mousedown"),function(e){if(isTheSameFingerId(e)&&!isMultipleTouches(e)&&(pointerId=e.pointerId,"mousedown"!==e.type&&(wasTouch=!0),"mousedown"!==e.type||!wasTouch)){var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX,cachedY=currY=pointer.pageY,longtapTimer=setTimeout(function(){sendEvent(e.target,"longtap",e),target=e.target},defaults.longtapThreshold),timestamp=getTimestamp(),tapNum++}}),setListener(doc,touchevents_touchend+(defaults.justTouchEvents?"":" mouseup"),function(e){if(isTheSameFingerId(e)&&!isMultipleTouches(e))if(pointerId=void 0,"mouseup"===e.type&&wasTouch)wasTouch=!1;else{var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;if(clearTimeout(dblTapTimer),clearTimeout(longtapTimer),deltaX<=-defaults.swipeThreshold&&eventsArr.push("swiperight"),deltaX>=defaults.swipeThreshold&&eventsArr.push("swipeleft"),deltaY<=-defaults.swipeThreshold&&eventsArr.push("swipedown"),deltaY>=defaults.swipeThreshold&&eventsArr.push("swipeup"),eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}})}tapNum=0}else cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision&&0<=timestamp+defaults.tapThreshold-now&&(sendEvent(e.target,2<=tapNum&&target===e.target?"dbltap":"tap",e),target=e.target),dblTapTimer=setTimeout(function(){tapNum=0},defaults.dbltapThreshold)}}),setListener(doc,touchevents_touchmove+(defaults.justTouchEvents?"":" mousemove"),function(e){if(isTheSameFingerId(e)&&("mousemove"!==e.type||!wasTouch)){var pointer=getPointerEvent(e);currX=pointer.pageX,currY=pointer.pageY}}),win.tocca=function(options){for(var opt in options)defaults[opt]=options[opt];return defaults}}(document,window);
 </script>
 <script>
-  var body = document.querySelector('body');
+  var body = document.querySelector('div');
   var audio = document.querySelector('audio');
   var a = document.querySelector('a');
   var h3 = document.querySelector('h3');
   var txta = document.querySelector('textarea');
-  var button = document.querySelector('button');
+  var w = document.getElementById('w');
+  var n = document.getElementById('n');
+  var p = document.getElementById('p');
   var synth = window.speechSynthesis;
   var words = ['エー','ビー','シー'], index = 1, len = 3;
   var ggtts = true;
- body.addEventListener('tap',function(e){
+txta.addEventListener('swipeleft',function(e){
+  if(indx==warray.length) {
+      indx = 1;
+    } else {
+      indx++;
+    }
+  txta.value = warray[indx-1];
+  a.innerHTML = indx;
+});
+txta.addEventListener('swiperight',function(e){
+  if(indx==1) {
+      indx = warray.length;
+    } else {
+      indx--;
+    }
+  txta.value = warray[indx-1];
+  a.innerHTML = indx;
+});
+body.addEventListener('tap',function(e){
     // Make noise
    makeNoise(words[index-1],'1');
 });
@@ -114,8 +175,10 @@ body.addEventListener('swipedown',function(e){
   // Change type GG-Syn-TTS
   if(ggtts){
     synTTS('オフラインモード','1');
+    document.body.style.backgroundColor = 'black';
   } else {
     synTTS('オンラインモード','1');
+    document.body.style.backgroundColor = 'white';
   }
   ggtts = !ggtts;
 });
@@ -123,9 +186,15 @@ body.addEventListener('swipedown',function(e){
     txta.hidden = true;
     newWord();
   });
-  button.addEventListener('click',function() {
+  w.addEventListener('click',function() {
     txta.hidden = false;
     txta.focus();
+  });
+  n.addEventListener('click',function() {
+    next();
+  });
+  p.addEventListener('click',function() {
+    prev();
   });
   function makeNoise(text, speed)
   {
