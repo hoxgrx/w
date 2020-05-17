@@ -104,12 +104,13 @@ body.addEventListener('swiperight',function(e){
   prev();
 });
 body.addEventListener('swipeup',function(e){
-  // Mix
-  mix();
-});
-body.addEventListener('swipedown',function(e){
+
   // Change type LISTEN-READING
   h3.classList.toggle("hidden");
+});
+body.addEventListener('swipedown',function(e){
+  // Mix
+  mix();
 });
   txta.addEventListener('focusout',function() {
     txta.hidden = true;
@@ -135,7 +136,10 @@ body.addEventListener('swipedown',function(e){
     audio.play();
   }
   function synTTS(text, ttsspeed) {
-	var rate = 0.5;
+    if (synth.speaking) {
+         synth.pause();
+    }
+    var rate = 0.5;
 	if(ttsspeed=='1') {
 		rate = 1;
 	}
@@ -143,10 +147,7 @@ body.addEventListener('swipedown',function(e){
     utterThis.lang = 'ja-JP';
     utterThis.pitch = 1;
     utterThis.rate = rate;
-    if (synth.speaking) {
-         synth.pause();
-    }
-        synth.speak(utterThis);
+    synth.speak(utterThis);
 
   }
   
