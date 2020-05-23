@@ -211,10 +211,11 @@ body.addEventListener('swipedown',function(e){
     audio.load();
     audio.play();
   }
-  function synTTS(text, ttsspeed) { try{
+  function synTTS(text, ttsspeed) { 
 if(synth.speaking) {
+try{
 synth.pause();
-}}catch(){}
+}catch(err){}}
     var rate = 0.5;
 	if(ttsspeed=='1') {
 		rate = 1;
