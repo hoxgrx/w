@@ -10,9 +10,9 @@
 	    height:100vh;
 	    overflow:hidden;
             background-color:black;
+            color:#900C3F;
 	  }
 	  #b {
-		color:#111;
 		width:100vw;
 		height:100vh;
 		height: 100%;
@@ -33,12 +33,10 @@
         user-select: none;
       }
 	  a {
-		color:orange;
 		text-decoration: none;
 		margin-top: 10vh;
 	  }
 	  h3 {
-		color: orange;
         font-size: 40px;
         margin-top: 30vh;
 	  }
@@ -75,7 +73,6 @@
         font-size:18px;
         z-index: 2;
         background-color:black;
-        color:red;
       }
       .hidden {
         display: none;
@@ -178,10 +175,10 @@ body.addEventListener('swipedown',function(e){
   // Change type GG-Syn-TTS
   if(ggtts){
     synTTS('オフラインモード','1');
-    h3.style.color = 'darkred';
+    body.style.color = '#FF5733';
   } else {
     synTTS('オンラインモード','1');
-    h3.style.color = 'orange';
+    body.style.color = '#900C3F';
   }
   ggtts = !ggtts;
 });
